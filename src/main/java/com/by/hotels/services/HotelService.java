@@ -10,8 +10,10 @@ import com.by.hotels.dto.HotelOverviewDto;
 import com.by.hotels.entities.Hotel;
 import com.by.hotels.entities.Amenities;
 import com.by.hotels.repositories.HotelRepository;
+import jakarta.persistence.EntityNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
 import java.util.List;
 import java.util.Set;
 import java.util.stream.Collectors;
@@ -24,6 +26,7 @@ public class HotelService {
     private final ConvertHotelToHotelOverviewDto convertorToOverviewDto;
     private final ConvertHotelToHotelDetailedDto convertorToDetailedDto;
 
+
     @Autowired
     public HotelService(HotelRepository hotelRepository,
                         ConvertDtoToHotel convertorToHotel,
@@ -33,6 +36,7 @@ public class HotelService {
         this.convertorToHotel = convertorToHotel;
         this.convertorToOverviewDto = convertorToOverviewDto;
         this.convertorToDetailedDto = convertorToDetailedDto;
+
     }
 
     public List<HotelOverviewDto> getAll() {
@@ -42,7 +46,8 @@ public class HotelService {
     }
 
     public HotelDto getById(Long id) {
-        Hotel hotel = hotelRepository.getById(id);
+        Hotel hotel = hotelRepository.findById(id)
+                .orElseThrow(() -> new EntityNotFoundException("Hotel not found with id " + id));
         return convertorToDetailedDto.convert(hotel);
     }
 
@@ -77,19 +82,25 @@ public class HotelService {
     }
 
 
-
-
-    public HotelOverviewDto create (HotelCreationDto hotelCreationDto) {
+    public HotelOverviewDto create(HotelCreationDto hotelCreationDto) {
         Hotel hotel = convertorToHotel.convert(hotelCreationDto);
         hotelRepository.save(hotel);
         return convertorToOverviewDto.convert(hotel);
     }
 
-     public void update (Long id, Amenities amenities) {
-       Hotel hotel =  hotelRepository.getById(id);
-       HotelDto hotelDto = convertorToDetailedDto.convert(hotel);
+    public Hotel addAmenities(Long hotelId, Set<Amenities> newAmenities) {
 
-     }
+        Hotel hotel = hotelRepository.findById(hotelId)
+                .orElseThrow(() -> new EntityNotFoundException("Hotel not found with id " + hotelId));
 
+
+        for (Amenities newAmenity : newAmenities) {
+            if (!hotel.getAmenitiesList().contains(newAmenity)) {
+                hotel.getAmenitiesList().add(newAmenity);
+            }
+        }
+
+        return hotelRepository.save(hotel);
+    }
 
 }
