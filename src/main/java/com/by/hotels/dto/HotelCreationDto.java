@@ -1,27 +1,27 @@
 package com.by.hotels.dto;
 
+import com.by.hotels.entities.Amenities;
+import com.by.hotels.entities.Hotel;
 import com.by.hotels.models.Address;
+import com.by.hotels.models.ArrivalTime;
+import com.by.hotels.models.Contacts;
 
 import java.util.Set;
 
-public class HotelDto {
-    private Long id;
+public class HotelCreationDto {
+
     private String name;
     private String brand;
     private String description;
     private Address address;
-    private String phone;
-    private String email;
-    private String checkIn;
-    private String checkOut;
-    private Set<String> amenities;
+    private Contacts contacts;
+    private ArrivalTime arrivalTime;
+    private Set<Amenities> amenities;
 
-    private HotelDto() {
+    private HotelCreationDto() {
     }
 
-    public Long getId() {
-        return id;
-    }
+
 
     public String getName() {
         return name;
@@ -39,23 +39,15 @@ public class HotelDto {
         return address;
     }
 
-    public String getPhone() {
-        return phone;
+    public Contacts getContacts() {
+        return contacts;
     }
 
-    public String getEmail() {
-        return email;
+    public ArrivalTime getArrivalTime() {
+        return arrivalTime;
     }
 
-    public String getCheckIn() {
-        return checkIn;
-    }
-
-    public String getCheckOut() {
-        return checkOut;
-    }
-
-    public Set<String> getAmenities() {
+    public Set<Amenities> getAmenities() {
         return amenities;
     }
 
@@ -64,16 +56,13 @@ public class HotelDto {
     }
 
     public static class Builder {
-        private final HotelDto hotelDto;
+        private final  HotelCreationDto hotelDto;
 
         public Builder() {
-            this.hotelDto = new HotelDto();
+            this.hotelDto = new HotelCreationDto();
         }
 
-        public Builder id(Long id) {
-            hotelDto.id = id;
-            return this;
-        }
+
 
         public Builder name(String name) {
             hotelDto.name = name;
@@ -95,32 +84,24 @@ public class HotelDto {
             return this;
         }
 
-        public Builder phone(String phone) {
-            hotelDto.phone = phone;
+        public Builder contacts (Contacts contacts) {
+            hotelDto.contacts = contacts;
             return this;
         }
 
-        public Builder email(String email) {
-            hotelDto.email = email;
+        public Builder ArrivalTime (ArrivalTime arrivalTime) {
+            hotelDto.arrivalTime = arrivalTime;
             return this;
         }
 
-        public Builder checkIn(String checkIn) {
-            hotelDto.checkIn = checkIn;
-            return this;
-        }
 
-        public Builder checkOut(String checkOut) {
-            hotelDto.checkOut = checkOut;
-            return this;
-        }
 
-        public Builder amenities(Set<String> amenities) {
+        public Builder amenities(Set<Amenities> amenities) {
             hotelDto.amenities = amenities;
             return this;
         }
 
-        public HotelDto build() {
+        public HotelCreationDto build() {
             return hotelDto;
         }
     }
