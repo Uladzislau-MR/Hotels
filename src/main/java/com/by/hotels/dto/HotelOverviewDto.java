@@ -37,7 +37,7 @@ public class HotelOverviewDto {
             this.hotelDto = new HotelOverviewDto();
         }
 
-        // Исправлены возвращаемые типы
+
         public Builder id(Long id) {
             hotelDto.id = id;
             return this;
