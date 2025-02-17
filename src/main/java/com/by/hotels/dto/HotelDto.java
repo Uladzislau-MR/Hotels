@@ -1,5 +1,4 @@
 package com.by.hotels.dto;
-
 import com.by.hotels.models.Address;
 
 import java.util.Set;

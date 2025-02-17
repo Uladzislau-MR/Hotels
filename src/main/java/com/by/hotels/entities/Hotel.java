@@ -4,7 +4,6 @@ import com.by.hotels.models.Address;
 import com.by.hotels.models.ArrivalTime;
 import com.by.hotels.models.Contacts;
 import jakarta.persistence.*;
-import lombok.Data;
 
 import java.util.HashSet;
 import java.util.Objects;

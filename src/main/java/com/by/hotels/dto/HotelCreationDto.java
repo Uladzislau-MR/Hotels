@@ -1,7 +1,6 @@
 package com.by.hotels.dto;
 
 import com.by.hotels.entities.Amenities;
-import com.by.hotels.entities.Hotel;
 import com.by.hotels.models.Address;
 import com.by.hotels.models.ArrivalTime;
 import com.by.hotels.models.Contacts;
@@ -89,7 +88,7 @@ public class HotelCreationDto {
             return this;
         }
 
-        public Builder ArrivalTime (ArrivalTime arrivalTime) {
+        public Builder arrivalTime(ArrivalTime arrivalTime) {
             hotelDto.arrivalTime = arrivalTime;
             return this;
         }

@@ -1,7 +1,6 @@
 package com.by.hotels.models;
 
 import jakarta.persistence.Embeddable;
-import lombok.Data;
 
 
 @Embeddable
