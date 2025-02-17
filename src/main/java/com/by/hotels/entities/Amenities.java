@@ -15,6 +15,10 @@ public class Amenities {
     public Amenities() {
     }
 
+    public Amenities(String name) {
+        this.name = name;
+    }
+
     @Column(unique = true,nullable = false)
     private String name;
 

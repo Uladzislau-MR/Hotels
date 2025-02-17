@@ -1,8 +1,10 @@
 package com.by.hotels.controllers;
 
+import com.by.hotels.dto.HistogramDto;
 import com.by.hotels.dto.HotelCreationDto;
 import com.by.hotels.dto.HotelDto;
 import com.by.hotels.dto.HotelOverviewDto;
+import com.by.hotels.entities.Amenities;
 import com.by.hotels.entities.Hotel;
 import com.by.hotels.services.HotelService;
 import lombok.extern.slf4j.Slf4j;
@@ -10,15 +12,17 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.util.List;
+import java.util.Map;
 import java.util.Set;
 
-@Slf4j
 @RestController
 @RequestMapping("/property-view")
 public class HotelController {
-
+    private static final Logger log = LoggerFactory.getLogger(HotelController.class);
     @Autowired
     private HotelService hotelService;
 
@@ -32,9 +36,9 @@ public class HotelController {
     }
 
     @GetMapping("/hotels/{id}")
-    public HotelDto getHotel(@PathVariable Long id) {
-
-        return hotelService.getById(id);
+    public ResponseEntity<HotelDto> getHotel(@PathVariable Long id) {
+        HotelDto hotelDto = hotelService.getById(id);
+        return ResponseEntity.ok(hotelDto);
     }
 
     @GetMapping("/search")
@@ -50,8 +54,8 @@ public class HotelController {
             @RequestParam(required = false) String phone,
             @RequestParam(required = false) String email,
             @RequestParam(required = false) Set<String> amenities,
-            @RequestParam(required = false)  String checkIn,
-            @RequestParam(required = false)  String checkOut) {
+            @RequestParam(required = false) String checkIn,
+            @RequestParam(required = false) String checkOut) {
 
         List<HotelOverviewDto> hotels = hotelService.searchHotels(name, description, brand, houseNumber,
                 street, city, county, postCode, phone, email, amenities, checkIn, checkOut);
@@ -65,11 +69,35 @@ public class HotelController {
 
 
     @PostMapping("/hotels")
-    public HotelOverviewDto create(@RequestBody HotelCreationDto hotelCreationDto){
-       return hotelService.create(hotelCreationDto);
+    public ResponseEntity<HotelOverviewDto> create(@RequestBody HotelCreationDto hotelCreationDto) {
+        HotelOverviewDto createdHotel = hotelService.create(hotelCreationDto);
+        return ResponseEntity.status(HttpStatus.CREATED).body(createdHotel);
     }
 
 
+    @PostMapping("/hotels/{id}/amenities")
+    public ResponseEntity<Void> addAmenities(@RequestBody Set<String> newAmenities, @PathVariable Long id) {
+        hotelService.addAmenities(id, newAmenities);
+        return ResponseEntity.ok().build();
+    }
 
 
+    @GetMapping("/histogram/{param}")
+    public ResponseEntity<HistogramDto> getHistogram(@PathVariable String param) {
+
+        try {
+            log.info("Received parameter: {}", param);
+            HistogramDto dto = hotelService.getHistogramData(param);
+
+            return ResponseEntity.ok(dto);
+        } catch (IllegalArgumentException e) {
+            log.error("Invalid parameter: {}", param);
+            return ResponseEntity.badRequest().build();
+        } catch (Exception e) {
+            log.error("Internal error", e);
+            return ResponseEntity.internalServerError().build();
+        }
+    }
 }
+
+
