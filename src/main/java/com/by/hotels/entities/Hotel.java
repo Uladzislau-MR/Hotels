@@ -118,7 +118,7 @@ public class Hotel {
         return Objects.hash(id);
     }
 
-    // toString
+
     @Override
     public String toString() {
         return "Hotel{" +
