@@ -1,0 +1,156 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+                        http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-latest.xsd">
+
+
+    <changeSet id="insert-amenities-data" author="Vladislav">
+        <insert tableName="amenities">
+            <column name="name" value="Free parking"/>
+        </insert>
+        <insert tableName="amenities">
+            <column name="name" value="Free WiFi"/>
+        </insert>
+        <insert tableName="amenities">
+            <column name="name" value="Non-smoking rooms"/>
+        </insert>
+        <insert tableName="amenities">
+            <column name="name" value="Concierge"/>
+        </insert>
+        <insert tableName="amenities">
+            <column name="name" value="On-site restaurant"/>
+        </insert>
+        <insert tableName="amenities">
+            <column name="name" value="Fitness center"/>
+        </insert>
+        <insert tableName="amenities">
+            <column name="name" value="Pet-friendly rooms"/>
+        </insert>
+        <insert tableName="amenities">
+            <column name="name" value="Room service"/>
+        </insert>
+        <insert tableName="amenities">
+            <column name="name" value="Business center"/>
+        </insert>
+        <insert tableName="amenities">
+            <column name="name" value="Meeting rooms"/>
+        </insert>
+    </changeSet>
+
+
+    <changeSet id="insert-hotels-data" author="Vladislav">
+        <insert tableName="hotels">
+            <column name="name" value="DoubleTree by Hilton Minsk"/>
+            <column name="description" value="Luxury hotel in Minsk"/>
+            <column name="brand" value="Hilton"/>
+            <column name="house_number" value="9"/>
+            <column name="street" value="Pobediteley Avenue"/>
+            <column name="city" value="Minsk"/>
+            <column name="county" value="Belarus"/>
+            <column name="post_code" value="220004"/>
+            <column name="phone" value="+375 17 309-80-00"/>
+            <column name="email" value="doubletreeminsk.info@hilton.com"/>
+            <column name="check_in" value="14:00"/>
+            <column name="check_out" value="12:00"/>
+        </insert>
+        <insert tableName="hotels">
+            <column name="name" value="Marriott Moscow"/>
+            <column name="description" value="5-star hotel in Moscow"/>
+            <column name="brand" value="Marriott"/>
+            <column name="house_number" value="1"/>
+            <column name="street" value="Tverskaya Street"/>
+            <column name="city" value="Moscow"/>
+            <column name="county" value="Russia"/>
+            <column name="post_code" value="125009"/>
+            <column name="phone" value="+7 495 937-00-00"/>
+            <column name="email" value="info@marriottmoscow.com"/>
+            <column name="check_in" value="15:00"/>
+            <column name="check_out" value="12:00"/>
+        </insert>
+        <insert tableName="hotels">
+            <column name="name" value="Ritz-Carlton Berlin"/>
+            <column name="description" value="Luxury hotel in Berlin"/>
+            <column name="brand" value="Ritz-Carlton"/>
+            <column name="house_number" value="3"/>
+            <column name="street" value="Potsdamer Platz"/>
+            <column name="city" value="Berlin"/>
+            <column name="county" value="Germany"/>
+            <column name="post_code" value="10785"/>
+            <column name="phone" value="+49 30 33777-0"/>
+            <column name="email" value="info@ritzcarltonberlin.com"/>
+            <column name="check_in" value="15:00"/>
+            <column name="check_out" value="12:00"/>
+        </insert>
+        <insert tableName="hotels">
+            <column name="name" value="The Peninsula Paris"/>
+            <column name="description" value="Luxury hotel in Paris"/>
+            <column name="brand" value="Peninsula"/>
+            <column name="house_number" value="19"/>
+            <column name="street" value="Avenue Kléber"/>
+            <column name="city" value="Paris"/>
+            <column name="county" value="France"/>
+            <column name="post_code" value="75116"/>
+            <column name="phone" value="+33 1 58 12 28 88"/>
+            <column name="email" value="info@peninsulaparis.com"/>
+            <column name="check_in" value="15:00"/>
+            <column name="check_out" value="12:00"/>
+        </insert>
+        <insert tableName="hotels">
+            <column name="name" value="Mandarin Oriental Tokyo"/>
+            <column name="description" value="Luxury hotel in Tokyo"/>
+            <column name="brand" value="Mandarin Oriental"/>
+            <column name="house_number" value="2"/>
+            <column name="street" value="Chome-1 Nihonbashi"/>
+            <column name="city" value="Tokyo"/>
+            <column name="county" value="Japan"/>
+            <column name="post_code" value="103-8328"/>
+            <column name="phone" value="+81 3-3270-8800"/>
+            <column name="email" value="info@mo-tokyo.com"/>
+            <column name="check_in" value="14:00"/>
+            <column name="check_out" value="12:00"/>
+        </insert>
+    </changeSet>
+
+
+    <changeSet id="insert-hotel-amenities-relations" author="Vladislav">
+        <insert tableName="hotel_amenities">
+            <column name="hotel_id" valueNumeric="1"/>
+            <column name="amenity_id" valueNumeric="2"/>
+        </insert>
+        <insert tableName="hotel_amenities">
+            <column name="hotel_id" valueNumeric="1"/>
+            <column name="amenity_id" valueNumeric="1"/>
+        </insert>
+        <insert tableName="hotel_amenities">
+            <column name="hotel_id" valueNumeric="1"/>
+            <column name="amenity_id" valueNumeric="5"/>
+        </insert>
+        <insert tableName="hotel_amenities">
+            <column name="hotel_id" valueNumeric="2"/>
+            <column name="amenity_id" valueNumeric="2"/>
+        </insert>
+        <insert tableName="hotel_amenities">
+            <column name="hotel_id" valueNumeric="2"/>
+            <column name="amenity_id" valueNumeric="3"/>
+        </insert>
+        <insert tableName="hotel_amenities">
+            <column name="hotel_id" valueNumeric="3"/>
+            <column name="amenity_id" valueNumeric="4"/>
+        </insert>
+        <insert tableName="hotel_amenities">
+            <column name="hotel_id" valueNumeric="3"/>
+            <column name="amenity_id" valueNumeric="6"/>
+        </insert>
+        <insert tableName="hotel_amenities">
+            <column name="hotel_id" valueNumeric="4"/>
+            <column name="amenity_id" valueNumeric="7"/>
+        </insert>
+        <insert tableName="hotel_amenities">
+            <column name="hotel_id" valueNumeric="5"/>
+            <column name="amenity_id" valueNumeric="8"/>
+        </insert>
+    </changeSet>
+
+</databaseChangeLog>

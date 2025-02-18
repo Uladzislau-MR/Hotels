@@ -1,5 +1,7 @@
 package com.by.hotels.configuration;
 
+import liquibase.integration.spring.SpringLiquibase;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.boot.jdbc.DataSourceBuilder;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -37,8 +39,23 @@ public class DataSourceConfig {
         return DataSourceBuilder.create()
                 .url("jdbc:h2:file:./data/hotels_db")
                 .username("sa")
-                .password("null")
+                .password("")
                 .build();
     }
 
+
+    @Bean
+    @Profile("h2")
+    public SpringLiquibase h2Liquibase(
+            @Qualifier("h2DataSource") DataSource dataSource) {
+        return configureLiquibase(dataSource);
+    }
+
+    private SpringLiquibase configureLiquibase(DataSource dataSource) {
+        SpringLiquibase liquibase = new SpringLiquibase();
+        liquibase.setChangeLog("classpath:/db/changelog/db.changelog-master.xml");
+        liquibase.setDataSource(dataSource);
+        liquibase.setShouldRun(true);
+        return liquibase;
+    }
 }
